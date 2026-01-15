@@ -1,6 +1,12 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { Layout } from "./Components/Layout"
+
+// Dynamically import ChatBot to avoid SSR issues
+const EntryTestChatBot = dynamic(() => import("./Components/ChatBot"), {
+  ssr: false,
+})
 
 export default function DashboardPage() {
   return (
@@ -25,6 +31,9 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Entry Test Preparation Chatbot */}
+      <EntryTestChatBot />
     </Layout>
   )
 }

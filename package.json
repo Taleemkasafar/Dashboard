@@ -9,10 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@rcb-plugins/llm-connector": "^0.4.0",
     "framer-motion": "^12.24.10",
     "lucide-react": "^0.562.0",
     "next": "16.1.1",
     "react": "19.2.3",
+    "react-chatbotify": "^2.5.0",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
