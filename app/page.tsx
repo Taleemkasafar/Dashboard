@@ -2,6 +2,9 @@
 
 import dynamic from "next/dynamic"
 import { Layout } from "./Components/Layout"
+import { QuickAction } from "./Components/QuickAction"
+import { AnalyticsCard } from "./Components/AnalyticsCard"
+import { SuggestedVideosCard } from "./Components/SuggestedVideosCard"
 
 // Dynamically import ChatBot to avoid SSR issues
 const EntryTestChatBot = dynamic(() => import("./Components/ChatBot"), {
@@ -9,31 +12,31 @@ const EntryTestChatBot = dynamic(() => import("./Components/ChatBot"), {
 })
 
 export default function DashboardPage() {
+  const user = "Muhammad" // Replace with actual user data
+
   return (
     <Layout>
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-slate-800">Welcome to Dashboard</h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-xl transition">
-            <h3 className="font-semibold">Card 1</h3>
-            <p className="text-sm text-slate-600 mt-2">Some placeholder content for card 1.</p>
-          </div>
-
-          <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-xl transition">
-            <h3 className="font-semibold">Card 2</h3>
-            <p className="text-sm text-slate-600 mt-2">Some placeholder content for card 2.</p>
-          </div>
-
-          <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-xl transition">
-            <h3 className="font-semibold">Card 3</h3>
-            <p className="text-sm text-slate-600 mt-2">Some placeholder content for card 3.</p>
-          </div>
-        </div>
+      {/* Greeting Section */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold">Hello, <span className="text-blue-700">{user}</span>👋</h1>
+        <p className="text-sm text-slate-600 mt-1">
+          Keep pushing forward! Every step brings you closer to your goal.
+        </p>
       </div>
 
+<<<<<<< HEAD
       {/* Entry Test Preparation Chatbot */}
       <EntryTestChatBot />
+=======
+      {/* Quick Actions */}
+      <QuickAction />
+
+      {/* Analytics Card */}
+      <AnalyticsCard />
+
+      {/* Suggested Videos */}
+      <SuggestedVideosCard />
+>>>>>>> origin/layout
     </Layout>
   )
 }

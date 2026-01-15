@@ -1,73 +1,83 @@
 "use client"
 
-import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
+import { useState } from "react"
 
-export function Sidebar() {
+interface SidebarProps {
+  open: boolean
+  onClose: () => void
+}
+
+export function Sidebar({ open, onClose }: SidebarProps) {
   const [netOpen, setNetOpen] = useState(false)
 
+  const content = (
+    <nav className="space-y-3">
+      <p className="text-xl font-bold text-blue-300 mb-6">
+        Taleem Ka Safar
+      </p>
+
+      <p className="px-3 py-2 rounded-lg hover:bg-white/10 cursor-pointer">
+        Dashboard
+      </p>
+
+      <button
+        onClick={() => setNetOpen(!netOpen)}
+        className="flex w-full items-center justify-between px-3 py-2 rounded-lg hover:bg-white/10"
+      >
+        <span>Net Engineering</span>
+        <ChevronDown
+          className={`h-4 w-4 transition-transform ${netOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      <AnimatePresence>
+        {netOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="ml-4 space-y-2 text-sm text-slate-300"
+          >
+            <p className="cursor-pointer hover:text-white">Attempt Test</p>
+            <p className="cursor-pointer hover:text-white">Schedule Test</p>
+            <p className="cursor-pointer hover:text-white">AI-Based Test</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  )
+
   return (
-    <aside className="w-64 min-h-screen bg-gradient-to-b from-blue-900 to-slate-900 text-white p-6 flex flex-col relative">
-      {/* Branding */}
-      <div className="mb-8">
-        <h1 className="text-xl font-bold text-blue-400 tracking-tight">
-          Taleem Ka Safar
-        </h1>
-      </div>
+    <>
+      {/* Desktop */}
+      <aside className="hidden md:flex w-64 min-h-screen bg-gradient-to-b from-blue-900 to-slate-900 text-white p-6">
+        {content}
+      </aside>
 
-      {/* Menu items */}
-      <nav className="flex flex-col gap-1">
-        {/* Dashboard */}
-        <p className="px-3 py-2 rounded-lg hover:bg-white/10 cursor-pointer transition">
-          Dashboard
-        </p>
-
-        {/* Net Engineering */}
-        <button
-          onClick={() => setNetOpen(!netOpen)}
-          className="flex w-full justify-between items-center rounded-lg px-3 py-2 hover:bg-white/10 transition"
-        >
-          <span>Net Engineering</span>
-          <ChevronDown
-            className={`h-4 w-4 transition-transform ${netOpen ? "rotate-180" : ""}`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {netOpen && (
+      {/* Mobile */}
+      <AnimatePresence>
+        {open && (
+          <>
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="ml-4 mt-1 flex flex-col gap-2 text-sm text-slate-200"
+              className="fixed inset-0 bg-black/40 z-40"
+              onClick={onClose}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+            <motion.aside
+              className="fixed left-0 top-0 z-50 w-64 h-full bg-gradient-to-b from-blue-900 to-slate-900 text-white p-6 z-60"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
             >
-              <p className="hover:text-white cursor-pointer transition px-2 py-1 rounded">
-                Attempt Test
-              </p>
-              <p className="hover:text-white cursor-pointer transition px-2 py-1 rounded">
-                Schedule Test
-              </p>
-              <p className="hover:text-white cursor-pointer transition px-2 py-1 rounded">
-                AI-Based Test
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Analytics */}
-        <p className="px-3 py-2 rounded-lg hover:bg-white/10 cursor-pointer transition mt-1">
-          Analytics
-        </p>
-      </nav>
-
-      {/* Optional background animation */}
-      <motion.div
-        className="absolute -bottom-16 -right-16 w-48 h-48 bg-primary/10 rounded-full blur-3xl"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1 }}
-      />
-    </aside>
+              {content}
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

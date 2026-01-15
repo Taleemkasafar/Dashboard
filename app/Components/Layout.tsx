@@ -1,20 +1,25 @@
 "use client"
 
+import { useState } from "react"
 import { Navbar } from "./Navbar"
 import { Sidebar } from "./Sidebar"
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   return (
-    <div className="flex min-h-screen bg-slate-100">
-      {/* Persistent Sidebar */}
-      <Sidebar />
+    <div className="min-h-screen flex bg-slate-50">
+      
+      {/* Sidebar for desktop and mobile */}
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Main content */}
       <div className="flex-1 flex flex-col">
-        <Navbar />
-        <main className="p-6 flex-1 overflow-y-auto">{children}</main>
+        <Navbar onMenuClick={() => setSidebarOpen(true)} />
+        <main className="flex-1 p-6 space-y-8 overflow-y-auto">
+          {children}
+        </main>
       </div>
     </div>
   )
 }
-
