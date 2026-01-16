@@ -6,6 +6,7 @@ import { QuickAction } from "./Components/QuickAction"
 import { AnalyticsCard } from "./Components/AnalyticsCard"
 import { SuggestedVideosCard } from "./Components/SuggestedVideosCard"
 
+
 // Dynamically import ChatBot to avoid SSR issues
 const EntryTestChatBot = dynamic(() => import("./Components/ChatBot"), {
   ssr: false,
@@ -24,10 +25,6 @@ export default function DashboardPage() {
         </p>
       </div>
 
-<<<<<<< HEAD
-      {/* Entry Test Preparation Chatbot */}
-      <EntryTestChatBot />
-=======
       {/* Quick Actions */}
       <QuickAction />
 
@@ -36,7 +33,7 @@ export default function DashboardPage() {
 
       {/* Suggested Videos */}
       <SuggestedVideosCard />
->>>>>>> origin/layout
+      <EntryTestChatBot/>
     </Layout>
   )
 }
